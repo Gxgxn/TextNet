@@ -104,3 +104,35 @@ export const checkRateLimit = async (phoneNumber: string): Promise<RateLimitResu
         resetIn: RATE_LIMIT_WINDOW
     };
 };
+
+// ============ FREE TRIAL TRACKING ============
+
+const FREE_TRIAL_LIMIT = 50; // Total messages allowed in free trial
+
+/**
+ * Get lifetime usage count for a phone number.
+ */
+export const getUsageCount = async (phoneNumber: string): Promise<number> => {
+    const key = `usage:${phoneNumber}`;
+    const count = await redisClient.get(key);
+    return count ? parseInt(count, 10) : 0;
+};
+
+/**
+ * Increment usage and check if trial is exceeded.
+ * Returns { allowed, remaining, total }
+ */
+export const checkAndIncrementUsage = async (phoneNumber: string): Promise<{
+    allowed: boolean;
+    remaining: number;
+    total: number;
+}> => {
+    const key = `usage:${phoneNumber}`;
+    const newCount = await redisClient.incr(key);
+    
+    return {
+        allowed: newCount <= FREE_TRIAL_LIMIT,
+        remaining: Math.max(0, FREE_TRIAL_LIMIT - newCount),
+        total: newCount
+    };
+};

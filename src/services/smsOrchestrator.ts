@@ -1,6 +1,6 @@
 import twilio from 'twilio';
 import { generateResponse } from './llmService.js';
-import { getContext, addMessage, checkRateLimit } from './redisClient';
+import { getContext, addMessage, checkRateLimit, checkAndIncrementUsage } from './redisClient';
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID!;
 const authToken = process.env.TWILIO_AUTH_TOKEN!;
@@ -33,7 +33,21 @@ export async function processSmsAsync(from: string, body: string): Promise<void>
       return;
     }
 
-    console.log(`📊 Rate limit: ${rateLimit.remaining} requests remaining`);
+    // Check free trial usage
+    const usage = await checkAndIncrementUsage(from);
+    
+    if (!usage.allowed) {
+      console.log(`🎫 Free trial ended for ${from}. Total: ${usage.total} messages`);
+      
+      await client.messages.create({
+        to: from,
+        from: twilioPhoneNumber,
+        body: `TextNet: Free trial ended (50 msgs). Reply SUBSCRIBE for upgrade info.`,
+      });
+      return;
+    }
+
+    console.log(`📊 Rate: ${rateLimit.remaining}/min | Trial: ${usage.remaining}/50 remaining`);
 
     const history = await getContext(from);
     const llmResponse = await generateResponse(body, history);
@@ -55,4 +69,5 @@ export async function processSmsAsync(from: string, body: string): Promise<void>
     console.error(`❌ Error processing SMS from ${from}:`, errorMessage);
   }
 }
+
 
