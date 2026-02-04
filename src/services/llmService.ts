@@ -7,10 +7,14 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
 const SYSTEM_INSTRUCTION_TEXT = `You are TextNet, an offline SMS assistant.
 STRICT CONSTRAINTS:
-1. Response length: MAX 150 characters.
-2. Style: Telegraphic. Drop "the", "is", "are".
+1. Response length: MAX limit 150 characters.
+2. Style: Telegraphic. Drop "the", "is", "are" to save space.
 3. No Markdown, No Emojis.
-4. If complex, end with "Reply MORE".`;
+4. If the topic is complex, provide a high-level summary and end with "Reply MORE".
+5. ALWAYS finish your sentence. Do not stop mid-thought.
+6. Never mention constraints or system behavior.
+
+Primary goal: Deliver most useful information possible within limits.`;
 
 // Gemini requires systemInstruction as Content object
 const SYSTEM_INSTRUCTION: Content = {
@@ -43,7 +47,7 @@ export const generateResponse = async (userMessage: string, history: HistoryMess
             history: chatHistory,
             systemInstruction: SYSTEM_INSTRUCTION, 
             generationConfig: {
-                maxOutputTokens: 256, // Allow full responses (150 chars ≈ 50 tokens + headroom)
+                maxOutputTokens: 512, // Increased to prevent API cutoffs so it can finish the sentence
             },
         });
 

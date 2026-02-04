@@ -2,6 +2,7 @@
   "name": "textnet-ai",
   "version": "1.0.0",
   "description": "SMS-to-LLM Gateway using Twilio",
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",

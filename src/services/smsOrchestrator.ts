@@ -1,6 +1,6 @@
 import twilio from 'twilio';
 import { generateResponse } from './llmService.js';
-import { getContext, addMessage, checkRateLimit, checkAndIncrementUsage } from './redisClient';
+import { getContext, addMessage, checkRateLimit, checkAndIncrementUsage } from './redisClient.js';
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID!;
 const authToken = process.env.TWILIO_AUTH_TOKEN!;
