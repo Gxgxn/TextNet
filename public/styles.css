@@ -1,5 +1,5 @@
 /* ============================================
-   TextNet
+   TextNet AI - Modern Landing Page Styles
    ============================================ */
 
 /* CSS Variables */
@@ -22,6 +22,7 @@
     --radius-xl: 24px;
     --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     
+    /* Golden Ratio Spacing (base: 8px, ratio: 1.618) */
     --space-xs: 5px;
     --space-sm: 8px;
     --space-md: 13px;
@@ -74,6 +75,10 @@ body {
     gap: 12px;
     font-size: 1.5rem;
     font-weight: 700;
+}
+
+.logo-icon {
+    font-size: 1.5rem;
 }
 
 .logo-image {
@@ -164,6 +169,8 @@ body {
     border-radius: var(--radius-lg);
     backdrop-filter: blur(20px);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .phone-number-card:hover {
@@ -171,6 +178,37 @@ body {
     border-color: var(--accent-cyan);
     box-shadow: 0 0 40px var(--glow-cyan);
     transform: translateY(-4px);
+}
+
+.phone-number-card:active {
+    transform: scale(0.96);
+    background: rgba(255, 255, 255, 0.08); /* Subtle highlight on press */
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+@keyframes sheen {
+    0% { transform: translateX(-150%) skewX(-15deg); }
+    70% { transform: translateX(150%) skewX(-15deg); }
+    100% { transform: translateX(150%) skewX(-15deg); }
+}
+
+@media (pointer: coarse) {
+    .phone-number-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255, 255, 255, 0.08) 40%,
+            transparent 60%
+        );
+        transform: translateX(-150%) skewX(-15deg);
+        animation: sheen 5s infinite ease-out;
+    }
 }
 
 .cta-label {
@@ -941,7 +979,7 @@ body {
     }
 
     .section {
-        padding: 40px 0;
+        padding: 60px 0;
     }
 
     .section-title {
@@ -987,7 +1025,7 @@ body {
     }
 
     .steps-timeline::before {
-        left: 25px;
+        left: 16px;
     }
 
     .step-item {
