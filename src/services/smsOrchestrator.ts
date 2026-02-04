@@ -1,5 +1,6 @@
 import twilio from 'twilio';
-import { generateResponse } from './mockLlmService.js';
+import { generateResponse } from './llmService.js';
+import { getContext, addMessage, checkRateLimit } from './redisClient';
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID!;
 const authToken = process.env.TWILIO_AUTH_TOKEN!;
@@ -18,20 +19,40 @@ export async function processSmsAsync(from: string, body: string): Promise<void>
   console.log(`⚙️  Starting async processing for message from: ${from}`);
 
   try {
-    // Get response from LLM (currently mocked)
-    const llmResponse = await generateResponse(body);
-    console.log(`🤖 LLM response generated: ${llmResponse}`);
+    // Check rate limit first
+    const rateLimit = await checkRateLimit(from);
+    
+    if (!rateLimit.allowed) {
+      console.log(`🚫 Rate limit exceeded for ${from}. Reset in ${rateLimit.resetIn}s`);
+      
+      await client.messages.create({
+        to: from,
+        from: twilioPhoneNumber,
+        body: `TextNet: Rate limit reached. Try again in ${rateLimit.resetIn}s. Max 10 msgs/min.`,
+      });
+      return;
+    }
 
+    console.log(`📊 Rate limit: ${rateLimit.remaining} requests remaining`);
+
+    const history = await getContext(from);
+    const llmResponse = await generateResponse(body, history);
+    console.log(`🤖 LLM response generated: ${llmResponse}`);
+    
     // Send outbound SMS via Twilio
     const message = await client.messages.create({
       to: from,
       from: twilioPhoneNumber,
       body: llmResponse,
     });
-
+    // Save conversation history (user first, then assistant)
+    await addMessage(from, 'user', body);
+    await addMessage(from, 'assistant', llmResponse);
+    // Log success
     console.log(`✅ Outbound SMS sent successfully. SID: ${message.sid}`);
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error(`❌ Error processing SMS from ${from}:`, errorMessage);
   }
 }
+
