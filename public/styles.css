@@ -77,8 +77,9 @@ body {
     font-weight: 700;
 }
 
-.logo-icon {
-    font-size: 1.75rem;
+.logo-image {
+    height: var(--space-2xl);
+    width: auto;
 }
 
 .logo-text .accent {
