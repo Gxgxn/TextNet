@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "redis": "redis-server ./redis.conf",
+    "dev:all": "npm run redis & npm run dev"
   },
   "keywords": [
     "sms",

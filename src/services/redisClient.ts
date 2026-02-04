@@ -2,7 +2,8 @@ import { createClient } from 'redis';
 
 // 1. Create the client
 export const redisClient = createClient({
-    url: process.env.REDIS_URL || 'redis://localhost:6379'
+    url: process.env.REDIS_URL || 'redis://localhost:6379',
+    socket: { keepAlive: true, keepAliveInitialDelay: 30000 },
 });
 
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
