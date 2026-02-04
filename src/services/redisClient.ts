@@ -1,18 +1,33 @@
 import { createClient } from 'redis';
 
-// 1. Create the client
+// 1. Create the client with reconnection strategy
 export const redisClient = createClient({
     url: process.env.REDIS_URL || 'redis://localhost:6379',
-    socket: { keepAlive: true, keepAliveInitialDelay: 30000 },
+    socket: {
+        keepAlive: true,
+        keepAliveInitialDelay: 30000,
+        // Reconnect with exponential backoff
+        reconnectStrategy: (retries) => {
+            console.log(`Redis reconnect attempt ${retries}`);
+            // Max delay of 2 seconds, exponential backoff
+            const delay = Math.min(retries * 50, 2000);
+            return delay;
+        },
+    },
+    // Don't queue commands when disconnected — fail fast
+    disableOfflineQueue: true,
 });
 
-redisClient.on('error', (err) => console.log('Redis Client Error', err));
+// Connection event handlers for visibility
+redisClient.on('error', (err) => console.error('Redis Client Error:', err.message));
+redisClient.on('connect', () => console.log('Redis connecting...'));
+redisClient.on('ready', () => console.log('Redis connected and ready'));
+redisClient.on('reconnecting', () => console.log('Redis reconnecting...'));
 
 // 2. Connect immediately
 (async () => {
     if (!redisClient.isOpen) {
         await redisClient.connect();
-        console.log("Connected to Redis");
     }
 })();
 
