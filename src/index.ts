@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import { smsController } from './controllers/smsController.js';
+import './services/redisClient.js'; // Initialize Redis connection on startup
 
 const app = express();
 const PORT = process.env.PORT || 8080;
