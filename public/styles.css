@@ -1080,9 +1080,11 @@ body {
     .container {
         padding: 0 16px;
     }
-
+    .hero-subtitle-small {
+        display: none;
+    }
     .hero h1 {
-        font-size: 1.75rem;
+        font-size: 2rem;
     }
 
     .badge {
