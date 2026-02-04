@@ -77,9 +77,7 @@ body {
     font-weight: 700;
 }
 
-.logo-icon {
-    font-size: 1.5rem;
-}
+
 
 .logo-image {
     height: 2rem;
@@ -470,157 +468,7 @@ body {
     margin-bottom: var(--space-md);
 }
 
-/* Keep existing feature-card styles for backwards compat */
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-}
 
-.feature-card {
-    padding: 32px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-md);
-    transition: all 0.3s ease;
-}
-
-.feature-card:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--accent-purple);
-    transform: translateY(-4px);
-}
-
-.feature-icon {
-    font-size: 2.5rem;
-    margin-bottom: 16px;
-    display: block;
-}
-
-.feature-card h3 {
-    font-size: 1.125rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.feature-card p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
-/* ============================================
-   Problem Section
-   ============================================ */
-.problem-section {
-    background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(168, 85, 247, 0.03) 50%, var(--bg-dark) 100%);
-}
-
-.problem-content {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.problem-lead {
-    font-size: 1.25rem;
-    color: var(--text-secondary);
-    margin-bottom: 32px;
-}
-
-.problem-scenarios {
-    margin-bottom: 32px;
-}
-
-.problem-scenarios p {
-    font-size: 1.125rem;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-    font-style: italic;
-}
-
-.problem-moment {
-    font-size: 1.125rem;
-    color: var(--text-primary);
-    margin-bottom: 32px;
-    line-height: 1.8;
-}
-
-.problem-moment strong {
-    color: #ef4444;
-}
-
-.problem-solution {
-    font-size: 2rem;
-    font-weight: 800;
-}
-
-/* ============================================
-   Solution Section
-   ============================================ */
-.solution-section {
-    background: var(--bg-dark);
-}
-
-.solution-highlight {
-    font-size: 1.25rem;
-    color: var(--text-primary);
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 48px;
-    font-weight: 500;
-}
-
-.subsection-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 40px;
-    color: var(--text-primary);
-}
-
-/* ============================================
-   Scenarios / Use Cases
-   ============================================ */
-.use-cases {
-    background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(0, 212, 255, 0.03) 50%, var(--bg-dark) 100%);
-}
-
-.scenarios-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 32px;
-}
-
-.scenario-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-
-.scenario-card:hover {
-    background: var(--bg-card-hover);
-    transform: translateY(-4px);
-    border-color: var(--accent-cyan);
-}
-
-.scenario-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-}
-
-.scenario-icon {
-    font-size: 2rem;
-}
-
-.scenario-header h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-}
 
 /* Chat Window - SMS Style */
 .chat-window {
@@ -673,69 +521,7 @@ body {
     border-bottom-left-radius: 4px;
 }
 
-/* ============================================
-   CTA Section
-   ============================================ */
-.cta-section {
-    padding: 80px 0;
-}
 
-.cta-card {
-    text-align: center;
-    padding: 64px 40px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-xl);
-    backdrop-filter: blur(20px);
-    position: relative;
-    overflow: hidden;
-}
-
-.cta-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--accent-gradient);
-}
-
-.cta-card h2 {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    font-weight: 800;
-    margin-bottom: 12px;
-}
-
-.cta-card > p {
-    color: var(--text-secondary);
-    font-size: 1.125rem;
-    margin-bottom: 32px;
-}
-
-.cta-phone {
-    margin-bottom: 16px;
-}
-
-.phone-number-large {
-    font-size: clamp(2rem, 6vw, 3rem);
-    font-weight: 800;
-    text-decoration: none;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    transition: all 0.3s ease;
-}
-
-.phone-number-large:hover {
-    filter: brightness(1.2);
-}
-
-.cta-note {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-}
 
 /* ============================================
    Disclaimer Section (Collapsible)
@@ -800,84 +586,10 @@ body {
     color: var(--text-primary);
 }
 
-/* ============================================
-   Status Section
-   ============================================ */
-.status-section {
-    padding: 80px 0 120px;
-}
 
-.status-card {
-    padding: 48px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-xl);
-    backdrop-filter: blur(20px);
-    max-width: 700px;
-    margin: 0 auto;
-}
 
-.status-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 12px;
-}
 
-.status-indicator {
-    width: 12px;
-    height: 12px;
-    background: #22c55e;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-}
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-    50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-}
-
-.status-label {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--text-primary);
-}
-
-.status-description {
-    text-align: center;
-    color: var(--text-secondary);
-    margin-bottom: 32px;
-}
-
-.status-details {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.status-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border-subtle);
-}
-
-.status-item:last-child {
-    border-bottom: none;
-}
-
-.status-key {
-    font-weight: 600;
-    color: var(--text-primary);
-    flex-shrink: 0;
-}
-
-.status-value {
-    color: var(--text-secondary);
-    text-align: right;
-}
 
 /* ============================================
    Footer
@@ -978,6 +690,18 @@ body {
         padding: 16px 20px;
     }
 
+    /* Reduce vertical padding on mobile hero */
+    .hero {
+        min-height: auto;
+        padding-bottom: 60px;
+    }
+
+    .hero-content {
+        justify-content: flex-start;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
     .section {
         padding: 60px 0;
     }
@@ -1025,7 +749,7 @@ body {
     }
 
     .steps-timeline::before {
-        left: 16px;
+        left: 25px;
     }
 
     .step-item {
